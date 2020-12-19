@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	wcgorep.Gorep([]string{"https://londone.net/"})
+	wcgorep.Gorep([]string{"https://londone.net/", "wasuken"})
 }

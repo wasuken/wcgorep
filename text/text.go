@@ -1,14 +1,15 @@
-package wcgorep
+package text
 
 import (
 	"fmt"
+	"github.com/wasuken/wcgorep/common"
 	"regexp"
 	"strings"
 )
 
 type TextMatchResult struct {
 	TextMatchLines []TextMatchLine
-	Filename       string
+	Url            string
 }
 
 type TextMatchLine struct {
@@ -17,7 +18,7 @@ type TextMatchLine struct {
 }
 
 func (tmr TextMatchResult) Format() {
-	fmt.Println(tmr.Filename)
+	fmt.Println(tmr.Url)
 	for _, tml := range tmr.TextMatchLines {
 		tml.Format()
 	}
@@ -41,4 +42,12 @@ func textMatch(contents, pattern string) []TextMatchLine {
 	}
 
 	return mLines
+}
+
+func Gorep(url, pattern string) (TextMatchResult, error) {
+	c, err := common.Wget(url)
+	if err != nil {
+		return TextMatchResult{}, err
+	}
+	return TextMatchResult{Url: url, TextMatchLines: textMatch(c, pattern)}, nil
 }

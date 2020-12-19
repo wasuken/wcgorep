@@ -1,28 +1,15 @@
 package wcgorep
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"github.com/wasuken/wcgorep/text"
 )
-
-func wget(url string) (string, error) {
-	resp, err := http.Get(url)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return "", err
-	}
-
-	return string(body), nil
-}
 
 func Gorep(args []string) {
 	url := args[0]
-	fmt.Println(url)
+	ptn := args[1]
+	rst, err := text.Gorep(url, ptn)
+	if err != nil {
+		panic(err)
+	}
+	rst.Format()
 }

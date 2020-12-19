@@ -1,3 +1,3 @@
-module github.com/wcgorep
+module github.com/wasuken/wcgorep
 
 go 1.15

@@ -18,14 +18,14 @@ type TextMatchLine struct {
 }
 
 func (tmr TextMatchResult) Format() {
-	fmt.Println(tmr.Url)
+	fmt.Println("[" + tmr.Url + "]")
 	for _, tml := range tmr.TextMatchLines {
 		tml.Format()
 	}
 }
 
 func (tml TextMatchLine) Format() {
-	s := fmt.Sprintf("Number: %d, Text: %s.", tml.Number, tml.Text)
+	s := fmt.Sprintf("Number: %d, Text: '%s'.", tml.Number, tml.Text)
 	fmt.Println(s)
 }
 

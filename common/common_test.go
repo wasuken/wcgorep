@@ -1,6 +1,9 @@
 package common
 
 import (
+	"crypto/sha1"
+	"fmt"
+	"os"
 	"regexp"
 	"testing"
 )
@@ -34,6 +37,7 @@ func TestWget(t *testing.T) {
 	if result != expected {
 		t.Fatalf("failed test(not equal contents)")
 	}
+
 }
 
 func TestWgetFail(t *testing.T) {
@@ -50,5 +54,11 @@ func TestWgetFail(t *testing.T) {
 
 	if result == expected {
 		t.Fatalf("failed test(equal contents)")
+	}
+
+	urlHash := fmt.Sprintf("%x", sha1.Sum([]byte(url)))
+
+	if _, err := os.Stat(CACHEDIR + urlHash); os.IsNotExist(err) {
+		t.Fatalf("failed test(not exists url hash file)")
 	}
 }
